@@ -100,19 +100,29 @@ class METScanningNtupleMaker : public edm::EDAnalyzer {
   edm::EDGetTokenT<EcalRecHitCollection> RecHitsEE_token;
   edm::EDGetTokenT<EcalRecHitCollection> RecHitsES_token;
   edm::EDGetTokenT<HcalNoiseSummary> hSummary_token;
+  edm::EDGetTokenT<bool> BadChCandF_token;
+
+  edm::EDGetTokenT<bool> BadPFMuon_token;
+  edm::EDGetTokenT<vector<reco::Vertex> >  vertex_token;
+
+
   size_t run,event,lumiBlock,time;
   bool filtercsc2015, filterglobaltighthalo2016,filterglobalsupertighthalo2016, filterhcalstriphalo, filterhbher1, filterhbher2l, filterhbher2t, filterhbher1nozeros, filterhbheiso, filterecaltp, filterecalsc; 
-  bool filtertrackingletmc, filtertrackingletms, filtertrackingmsc, filtertrackingtmsc;
+  bool filtertrackingletmc, filtertrackingletms, filtertrackingmsc, filtertrackingtmsc, filterbadChCandidate, filterbadPFMuon ;
   edm::RunNumber_t irun;
   edm::EventNumber_t ievent;
   edm::LuminosityBlockNumber_t ilumiBlock;
   edm::Timestamp itime;
   
+  size_t nVtx;
+
   std::vector<float>  pfLepton_pt;
   std::vector<float>  pfLepton_eta;
   std::vector<float>  pfLepton_phi;
   std::vector<float>  pfLepton_pdgId;
-  
+  std::vector<float>  pfLepton_d0;
+    
+
   std::vector<float>  pfJet_pt;
   std::vector<float>  pfJet_eta;
   std::vector<float>  pfJet_phi;
@@ -169,8 +179,10 @@ class METScanningNtupleMaker : public edm::EDAnalyzer {
   std::vector<float> track_pt;
   std::vector<float> track_eta;
   std::vector<float> track_phi;
-
-
+  std::vector<float> track_d0;
+  std::vector<float> track_d0Error;
+  std::vector<float> track_dz;
+  std::vector<float> track_dzError;
   //tree stuff
   std::string outputfile_;
   TFile* tf1;
